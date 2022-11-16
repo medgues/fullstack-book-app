@@ -1,33 +1,23 @@
-require("dotenv").config();
-
 const express = require("express");
+require("dotenv").config();
 const mongoose = require("mongoose");
+const Router = require("./Routes/booksRouter");
 
-const booksRoutes = require("./routes/books");
-
-// Crearting the express app
 const app = express();
 
-// Middlewares
 app.use(express.json());
 
-app.use((req, res, next) => {
-  console.log(req.path);
-  next();
-});
-
-//defining routes
-app.use("/api/books", booksRoutes);
+app.use("/api/mybooks", Router);
 
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
-    console.log("connected to MongoDB!");
+    console.log("connected to MONGODB");
   })
   .catch((err) => {
     console.log(err);
   });
 
 app.listen(process.env.PORT, () => {
-  console.log(`listening for request on port ${process.env.PORT}`);
+  console.log(`listening to port ${process.env.PORT}`);
 });

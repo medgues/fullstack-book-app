@@ -1,24 +1,22 @@
-import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Book from "./components/Book";
-import Books from "./components/Books";
+import { useContext, useEffect, useState } from "react";
+import { BooksContext } from "./context/BooksContext";
+import fetchData from "./helpers/fetchData";
 import Navbar from "./components/Navbar";
+import Section from "./components/Section";
+import "./App.css";
 
 function App() {
-  const [books, setBooks] = useState([]);
-  console.log(books)
+  const value = useContext(BooksContext);
+  const [setBooks] = value.data;
+  useEffect(() => {
+    fetchData(setBooks);
+  }, []);
 
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
-      <div className="px-14 py-4">
-        <Routes>
-          <Route path="/" element={<Books setBooks={setBooks} books={books} />} />
-          <Route path="/:id" element={<Book />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+      <Section />
+    </>
   );
 }
 
