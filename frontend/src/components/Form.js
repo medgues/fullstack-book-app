@@ -1,20 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { BooksContext } from "../context/BooksContext";
 
 const Form = () => {
   const [title, setTitle] = useState("");
   const [auther, setAuther] = useState("");
   const [price, setPrice] = useState("");
-  const value = useContext(BooksContext);
-  const [setBooks] = value;
 
   const handelForm = async () => {
     const book = { title: title, auther: auther, price: +price };
     const res = await axios.post("/api/mybooks/", book).catch((err) => {
       console.log(err);
     });
-    setBooks((prevState) => [...prevState, res.data]);
     setTitle("");
     setAuther("");
     setPrice("");

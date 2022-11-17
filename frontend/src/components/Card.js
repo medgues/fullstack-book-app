@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { BooksContext } from "../context/BooksContext";
 
 const Card = ({ book }) => {
@@ -11,7 +12,9 @@ const Card = ({ book }) => {
         <p>Auther : {book.auther} </p>
         <p>Price : $ {book.price} </p>
         <div className="card-actions justify-end">
-          <button className="btn btn-ghost">Edit</button>
+          <Link to={`/edit/${book._id}`}>
+            <button className="btn btn-ghost">Edit</button>
+          </Link>
           <button
             onClick={() => handelDelete(book)}
             className="btn btn-primary"
